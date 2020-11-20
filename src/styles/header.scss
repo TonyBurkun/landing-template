@@ -8,6 +8,52 @@ header{
   background-color: transparent;
   z-index: 100;
 
+  .mobile-header{
+    display: none;
+    background-color: $header-bg;
+    height: 99px;
+  }
+
+  &.mobile-header-active{
+    .header{
+      display: none;
+    }
+
+    .mobile-header{
+      display: block;
+    }
+
+
+    .mobile-header{
+      &__list{
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 100px;
+        width: 100%;
+        background-color: $header-bg;
+      }
+
+      li{
+        list-style: none;
+
+        a{
+          padding: 20px 0;
+          text-decoration: none;
+          display: inline-block;
+          width: 100%;
+          text-align: center;
+          color: $white;
+          &:hover{
+            font-weight: bold;
+          }
+        }
+
+      }
+    }
+  }
+
+
   &.scrolled{
     background: $header-bg;
   }
@@ -49,11 +95,26 @@ header{
 
 
 .mobile-header{
-  height: 100px;
+  .menu-btn{
+    text-transform: uppercase;
+    color: $white;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    padding: 30px;
+    cursor: pointer;
+    font-weight: bold;
+  }
 
   &__list{
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    height: 0;
+    transition: ease-out 0.5s;
+    overflow: hidden;
+
+    &.open{
+      height: 295px;
+      transition: ease-in 0.5s;
+    }
   }
 }

@@ -30,4 +30,45 @@ document.addEventListener('scroll', () => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    activateMobileHeader();
+});
+
+
+window.addEventListener('resize', () => {
+    activateMobileHeader();
+});
+
+let menuBtn = document.getElementById('menu-btn');
+console.log(menuBtn);
+
+menuBtn.addEventListener('click', () => {
+    let menu = document.getElementsByClassName('mobile-header__list')[0];
+    menu.classList.toggle('open')
+});
+
+
+
+
+function activateMobileHeader(){
+    let browserWidth = window.innerWidth
+        || document.documentElement.clientWidth
+        || document.body.clientWidth;
+
+    let header = document.getElementsByTagName('header')[0];
+
+
+    if (browserWidth <= 768 && !header.classList.contains('mobile-header-active')) {
+        header.classList.add('mobile-header-active');
+    }
+
+    if (browserWidth > 768 && header.classList.contains('mobile-header-active')) {
+        header.classList.remove('mobile-header-active');
+
+        let menu = document.getElementsByClassName('mobile-header__list')[0];
+        menu.classList.remove('open');
+    }
+
+}
+
 
