@@ -2,13 +2,13 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin')
+const HtmlWebpackPartialsPlugin = require('html-webpack-partials-plugin');
 
 
 
 
 
-module.exports = function(env, argv) {
+module.exports = function(env) {
     let isProduction = false;
     if (env) {
         isProduction = env.production;
@@ -46,7 +46,7 @@ module.exports = function(env, argv) {
                 },
                 { test: /\.svg$/, use: 'svg-inline-loader' },
                 {
-                    test: /\.(png|jpe?g|gif)$/i,
+                    test: /\.(png|jpg|jpeg|gif)$/,
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
@@ -54,6 +54,13 @@ module.exports = function(env, argv) {
                         publicPath: 'img/',
                     },
                 },
+                // {
+                //     test: /\.html$/i,
+                //     loader: 'html-loader',
+                //     options: {
+                //         minimize: true,
+                //     },
+                // },
             ]
         },
         plugins: [
@@ -70,6 +77,11 @@ module.exports = function(env, argv) {
             new HtmlWebpackPartialsPlugin({
                 path: path.join(__dirname, './src/templates/header.html'),
                 location: 'header',
+                template_filename: ['index.html']
+            }),
+            new HtmlWebpackPartialsPlugin({
+                path: path.join(__dirname, './src/templates/footer.html'),
+                location: 'footer',
                 template_filename: ['index.html']
             })
         ].concat(isProduction ? [new MiniCssExtractPlugin()] : []),
